@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -17,7 +17,16 @@ import {
   X,
   ExternalLink,
   ShieldCheck,
+  TrendingUp,
+  Radio,
 } from "lucide-react";
+
+interface MarketRate {
+  symbol: string;
+  name: string;
+  priceUsd: number;
+  type: string;
+}
 
 interface AppNavigationProps {
   onOpenAddModal?: () => void;
@@ -32,6 +41,18 @@ export function AppNavigation({
 }: AppNavigationProps) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [rates, setRates] = useState<MarketRate[]>([]);
+
+  useEffect(() => {
+    fetch("/api/market-rates")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.rates && Array.isArray(data.rates)) {
+          setRates(data.rates);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const navItems = [
     { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
@@ -42,7 +63,30 @@ export function AppNavigation({
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-xl">
+      {/* Real-Time Market Ticker Ribbon */}
+      {rates.length > 0 && (
+        <div className="bg-slate-900/90 border-b border-slate-800/60 py-1 px-4 text-[11px] font-mono text-slate-400 overflow-x-auto no-scrollbar">
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-6">
+            <div className="flex items-center gap-2 text-emerald-400 shrink-0">
+              <Radio className="h-3 w-3 animate-pulse" />
+              <span className="font-semibold text-slate-200">LIVE MARKETS</span>
+            </div>
+            <div className="flex items-center gap-6 overflow-x-auto">
+              {rates.map((r) => (
+                <div key={r.symbol} className="flex items-center gap-1.5 shrink-0">
+                  <span className="text-slate-300 font-bold">{r.symbol}:</span>
+                  <span className="text-emerald-400 font-semibold">
+                    ${r.priceUsd.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <span className="text-[10px] text-slate-500 hidden lg:inline shrink-0">Live API Stream</span>
+          </div>
+        </div>
+      )}
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="h-16 flex items-center justify-between">
           {/* Brand */}

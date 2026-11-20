@@ -30,12 +30,31 @@ export default function DashboardOverviewPage() {
   const [isCsvOpen, setIsCsvOpen] = useState(false);
   const [isAiOpen, setIsAiOpen] = useState(false);
 
-  // Persistence
+  // Persistence & Server Sync
   useEffect(() => {
-    try {
-      const storedTx = localStorage.getItem("fintrack_transactions");
-      if (storedTx) setTransactions(JSON.parse(storedTx));
+    fetch("/api/transactions")
+      .then((res) => res.json())
+      .then((data) => {
+        try {
+          const storedTx = localStorage.getItem("fintrack_transactions");
+          if (storedTx) {
+            setTransactions(JSON.parse(storedTx));
+          } else if (data.transactions && Array.isArray(data.transactions)) {
+            setTransactions(data.transactions);
+            localStorage.setItem("fintrack_transactions", JSON.stringify(data.transactions));
+          }
+        } catch (e) {
+          if (data.transactions) setTransactions(data.transactions);
+        }
+      })
+      .catch(() => {
+        try {
+          const storedTx = localStorage.getItem("fintrack_transactions");
+          if (storedTx) setTransactions(JSON.parse(storedTx));
+        } catch (e) {}
+      });
 
+    try {
       const storedBudgets = localStorage.getItem("fintrack_budgets");
       if (storedBudgets) setBudgets(JSON.parse(storedBudgets));
 

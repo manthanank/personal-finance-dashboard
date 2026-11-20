@@ -25,10 +25,27 @@ export default function TransactionsPage() {
   const [isCsvOpen, setIsCsvOpen] = useState(false);
 
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem("fintrack_transactions");
-      if (stored) setTransactions(JSON.parse(stored));
-    } catch (e) {}
+    fetch("/api/transactions")
+      .then((res) => res.json())
+      .then((data) => {
+        try {
+          const stored = localStorage.getItem("fintrack_transactions");
+          if (stored) {
+            setTransactions(JSON.parse(stored));
+          } else if (data.transactions && Array.isArray(data.transactions)) {
+            setTransactions(data.transactions);
+            localStorage.setItem("fintrack_transactions", JSON.stringify(data.transactions));
+          }
+        } catch (e) {
+          if (data.transactions) setTransactions(data.transactions);
+        }
+      })
+      .catch(() => {
+        try {
+          const stored = localStorage.getItem("fintrack_transactions");
+          if (stored) setTransactions(JSON.parse(stored));
+        } catch (e) {}
+      });
   }, []);
 
   const saveTransactions = (newTx: Transaction[]) => {
