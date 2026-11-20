@@ -138,7 +138,7 @@ export default function MarketingLandingPage() {
               className="inline-flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/80 hover:bg-slate-800 px-6 py-3.5 text-sm font-semibold text-slate-200 transition-all"
             >
               <TrendingUp className="h-4 w-4 text-emerald-400" />
-              <span>Simulate Wealth Growth</span>
+              <span>Forecast Wealth Growth</span>
             </a>
           </div>
 
@@ -168,7 +168,7 @@ export default function MarketingLandingPage() {
               <TrendingUp className="h-4 w-4" />
               <span>Interactive Model</span>
             </div>
-            <h2 className="text-3xl font-extrabold text-white">Compound Wealth Simulator</h2>
+            <h2 className="text-3xl font-extrabold text-white">Compound Wealth Forecast Engine</h2>
             <p className="mt-2 text-xs sm:text-sm text-slate-400">
               Adjust your monthly contributions and expected return to forecast long-term compounding.
             </p>

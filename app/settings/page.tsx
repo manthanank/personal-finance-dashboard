@@ -261,10 +261,10 @@ export default function SettingsPage() {
                   <Download className="w-4 h-4" /> Download Full JSON Archive
                 </button>
                 <button 
-                  onClick={() => triggerToast('Sample data reset to default demo ledger')}
+                  onClick={() => { localStorage.removeItem('fintrack_transactions'); triggerToast('Ledger reset to baseline enterprise records'); }}
                   className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition"
                 >
-                  <RefreshCw className="w-4 h-4" /> Reset Sample Ledger
+                  <RefreshCw className="w-4 h-4" /> Reset Ledger to Baseline
                 </button>
               </div>
             </motion.div>

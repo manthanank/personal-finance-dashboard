@@ -29,7 +29,7 @@ export function CsvImportModal({ isOpen, onClose, onImport }: CsvImportModalProp
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", "sample-bank-statement.csv");
+    link.setAttribute("download", "bank-statement-template.csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -147,7 +147,7 @@ export function CsvImportModal({ isOpen, onClose, onImport }: CsvImportModalProp
                 className="flex items-center gap-1.5 text-indigo-400 hover:text-indigo-300 font-medium cursor-pointer"
               >
                 <Download className="h-3.5 w-3.5" />
-                <span>Download Sample CSV</span>
+                <span>Download Bank Template CSV</span>
               </button>
             </div>
           </div>
