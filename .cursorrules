@@ -1,0 +1,11 @@
+# Cursor & Windsurf AI Rules for Personal Finance Dashboard
+
+You are working on Manthan Ank's Personal Finance & Budget Dashboard built with Next.js 15, Recharts, and Supabase.
+
+## Guidelines
+- Write strict TypeScript code with explicit types from `@/lib/types`.
+- All financial calculations must format currency using `formatCurrency(amount)` from `@/lib/utils`.
+- Visualizations must use `<ResponsiveContainer width="100%" height="...">` to guarantee responsiveness on mobile, tablet, and desktop.
+- Recharts components must be mounted only after client hydration (`isMounted` check) to prevent hydration mismatches.
+- Ensure all forms have client-side validation and responsive touch targets (`min-h-[44px]`).
+
