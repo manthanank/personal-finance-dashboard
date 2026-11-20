@@ -8,6 +8,8 @@ Part of the **10-Project Full-Stack Suite** by [Manthan Ank](https://github.com/
 
 ## 🚀 Key Features & Capabilities
 
+- **Live Crypto & FX Market Ticker (`/api/market-rates`)**: Streams real-time cryptocurrency spot prices (BTC, ETH, SOL) and exchange rates in an always-visible top navigation ticker ribbon.
+- **Dynamic Ledger CRUD API (`/api/transactions`)**: Full REST API endpoint with relative date calculations ensuring transactions always reflect current dates, net balances, and cash flows.
 - **Interactive Transaction Ledger**: Record, search, filter (by type and category), and paginate income and expense transactions. Responsive desktop table and mobile card list.
 - **CSV Bank Statement Importer**: Drag-and-drop file dropzone powered by PapaParse with automated categorization and sample CSV generator.
 - **Dynamic Recharts Analytics**:
